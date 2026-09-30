@@ -2,374 +2,310 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f4f2ec">
-  <meta name="description" content="Reserva tu lugar en la próxima clase gratuita de Atom.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2b2a2a">
+  <meta name="description" content="Anotate a la clase gratis de Atom. Sumate al canal de WhatsApp y recibí el acceso.">
+  <meta property="og:title" content="Clase gratis | Atom">
+  <meta property="og:description" content="Anotate a la clase gratis de Atom. Sumate al canal de WhatsApp y recibí el acceso.">
   <title>Clase gratis | Atom</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
-      color-scheme: light;
-      --paper: #f4f2ec;
-      --ink: #172a27;
-      --muted: #596662;
-      --green: #d9ff58;
-      --blue: #4d65f5;
-      --coral: #f2765c;
-      --line: rgba(23, 42, 39, .18);
-      --display: "Fraunces", Georgia, serif;
-      --body: "DM Sans", "Segoe UI", sans-serif;
+      color-scheme: dark;
+      --negro-polvo: #2b2a2a;
+      --blanco-crema: #fce9e4;
+      --celeste: #87abdb;
+      --naranja: #db6f54;
+      --crema-suave: rgba(252, 233, 228, .78);
+      --linea-clara: rgba(252, 233, 228, .18);
+      --linea-oscura: rgba(43, 42, 42, .22);
+      --font: "Montserrat", "Segoe UI", Arial, sans-serif;
+      --corner: clamp(72px, 16vw, 168px);
     }
 
     *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      background: var(--paper);
-      color: var(--ink);
-      font-family: var(--body);
-      font-size: 16px;
-      line-height: 1.55;
+      background: var(--negro-polvo);
+      color: var(--blanco-crema);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
     }
+    img { display: block; max-width: 100%; height: auto; }
     a { color: inherit; }
-    a:focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
-    .shell { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
-    .topbar {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-    .wordmark {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      text-decoration: none;
-      font-size: 25px;
-      font-weight: 700;
-      letter-spacing: 0;
-    }
-    .wordmark-mark {
-      width: 28px;
-      aspect-ratio: 1;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: var(--blue);
-      color: white;
-      font-family: var(--display);
-      font-size: 19px;
-      line-height: 1;
-    }
-    .topbar-note {
-      color: var(--muted);
-      font-size: 13px;
-      font-weight: 600;
+    a:focus-visible { outline: 3px solid var(--blanco-crema); outline-offset: 3px; }
+    h1, h2, h3, p, ol, ul, dl { margin: 0; }
+    ol, ul { padding: 0; list-style: none; }
+    strong { font-weight: 700; }
+    .shell { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .pending { border-bottom: 1px dashed currentColor; }
+
+    h1, h2 { font-weight: 900; text-wrap: balance; }
+    h1 { font-size: clamp(40px, 11vw, 88px); line-height: .95; letter-spacing: -.05em; }
+    h2 { font-size: clamp(30px, 6vw, 52px); line-height: 1; letter-spacing: -.04em; }
+    .label {
+      margin-bottom: 12px;
+      color: var(--celeste);
+      font-size: clamp(18px, 2.4vw, 22px);
+      font-weight: 300;
+      line-height: 1.2;
+      letter-spacing: -.03em;
     }
 
-    .hero {
-      min-height: min(690px, calc(100svh - 90px));
-      position: relative;
-      isolation: isolate;
-      display: flex;
-      align-items: end;
-      overflow: hidden;
-      background: #34433d;
-      color: white;
-    }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      z-index: -1;
-      background: rgba(14, 31, 28, .55);
-    }
-    .hero-image {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 46%;
-    }
-    .hero-content {
-      width: min(770px, 100%);
-      padding: clamp(38px, 8vw, 88px) 0 clamp(42px, 8vw, 86px);
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin: 0 0 22px;
-      color: var(--green);
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-    .eyebrow::before {
-      content: "";
-      width: 9px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background: var(--coral);
-    }
-    h1, h2, p { margin-top: 0; }
-    h1 {
-      max-width: 760px;
-      margin-bottom: 18px;
-      font-family: var(--display);
-      font-size: clamp(48px, 8vw, 88px);
-      font-weight: 600;
-      letter-spacing: 0;
-      line-height: .99;
-    }
-    h1 em { color: var(--green); font-weight: 500; }
-    .hero-copy {
-      max-width: 570px;
-      margin-bottom: 27px;
-      color: rgba(255, 255, 255, .9);
-      font-size: 18px;
-      line-height: 1.55;
-    }
-    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 15px 22px; }
     .button {
-      min-height: 54px;
+      min-height: 56px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 11px;
-      padding: 0 21px;
-      border: 0;
-      border-radius: 4px;
-      background: var(--green);
-      color: var(--ink);
-      cursor: pointer;
-      font: 700 15px/1 var(--body);
+      gap: 10px;
+      padding: 0 28px;
+      border-radius: 999px;
+      background: var(--naranja);
+      color: var(--negro-polvo);
+      font: 700 19px/1 var(--font);
       text-decoration: none;
-      transition: background-color 180ms ease, transform 180ms ease;
+      transition: background-color 180ms ease;
     }
-    .button:hover { background: #e5ff91; transform: translateY(-2px); }
-    .button:active { transform: translateY(0); }
-    .button svg { width: 18px; height: 18px; }
-    .hero-hint { max-width: 220px; margin: 0; color: rgba(255, 255, 255, .76); font-size: 12px; line-height: 1.45; }
-    .hero-status { width: 100%; min-height: 22px; margin: 0; color: #fff; font-size: 13px; }
+    .button:hover, .button:active { background: var(--blanco-crema); }
+    .button svg { width: 22px; height: 22px; flex: 0 0 auto; }
+    .hint { max-width: 330px; color: var(--crema-suave); font-size: 14px; line-height: 1.45; }
+    .status { color: var(--blanco-crema); font-size: 14px; font-weight: 700; line-height: 1.45; }
+    .status:empty { display: none; }
 
-    .details-band { background: var(--green); }
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      padding-block: 25px;
+    .top { position: relative; overflow: hidden; }
+    .top-art {
+      position: absolute;
+      top: -92px;
+      right: -124px;
+      width: 236px;
+      transform: rotate(10deg);
+      pointer-events: none;
     }
-    .detail {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-      min-height: 48px;
-      padding-inline: 24px;
-      border-right: 1px solid rgba(23, 42, 39, .22);
-    }
-    .detail:first-child { padding-left: 0; }
-    .detail:last-child { border-right: 0; }
-    .detail svg { width: 21px; height: 21px; flex: 0 0 auto; }
-    .detail-label { display: block; color: rgba(23, 42, 39, .68); font-size: 11px; font-weight: 700; text-transform: uppercase; }
-    .detail-value { display: block; font-size: 14px; font-weight: 700; }
+    .topbar { position: relative; min-height: 84px; display: flex; align-items: center; }
+    .logo { display: block; width: 104px; }
+    .hero { position: relative; padding-block: 28px 44px; }
+    .hero h1 { max-width: 760px; margin-bottom: 18px; }
+    .hero-copy { max-width: 520px; margin-bottom: 26px; }
+    .actions { display: grid; justify-items: start; gap: 12px; }
 
-    .section { padding-block: clamp(66px, 10vw, 116px); }
-    .intro-grid { display: grid; grid-template-columns: .88fr 1.12fr; gap: clamp(36px, 9vw, 120px); align-items: start; }
-    .section-kicker { margin-bottom: 14px; color: var(--blue); font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-    h2 {
-      max-width: 500px;
-      margin-bottom: 0;
-      font-family: var(--display);
-      font-size: clamp(38px, 5.5vw, 64px);
-      font-weight: 600;
-      letter-spacing: 0;
-      line-height: 1.04;
-    }
-    .intro-copy { max-width: 555px; color: var(--muted); font-size: 18px; }
-    .intro-copy p:last-child { margin-bottom: 0; }
-    .steps { border-top: 1px solid var(--line); }
-    .step {
-      display: grid;
-      grid-template-columns: 66px 1fr auto;
-      align-items: center;
-      gap: 18px;
-      padding-block: 23px;
-      border-bottom: 1px solid var(--line);
-    }
-    .step-number { color: var(--coral); font-family: var(--display); font-size: 31px; }
-    .step h3 { margin: 0 0 3px; font-size: 17px; }
-    .step p { margin: 0; color: var(--muted); font-size: 14px; }
-    .step-arrow { color: var(--blue); font-size: 22px; }
+    .details-wrap { background: var(--negro-polvo); }
+    .details { border-top-left-radius: var(--corner); background: var(--celeste); color: var(--negro-polvo); }
+    .details-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-block: 44px; }
+    .detail dt { font-size: 17px; font-weight: 300; letter-spacing: -.03em; }
+    .detail dd { margin: 2px 0 0; font-size: clamp(21px, 2.4vw, 26px); font-weight: 900; line-height: 1.15; letter-spacing: -.03em; }
 
-    .closing {
-      position: relative;
-      overflow: hidden;
-      padding-block: clamp(58px, 8vw, 92px);
-      background: var(--ink);
-      color: white;
-    }
-    .closing-inner { display: flex; align-items: center; justify-content: space-between; gap: 36px; }
-    .closing h2 { max-width: 620px; font-size: clamp(38px, 5vw, 58px); }
-    .closing .section-kicker { color: var(--green); }
-    .closing .button { flex: 0 0 auto; }
-    .closing-status { margin: 14px 0 0; color: rgba(255, 255, 255, .8); font-size: 13px; }
-    footer { padding-block: 25px; }
-    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; color: var(--muted); font-size: 12px; }
-    .footer-inner p { margin: 0; }
-    .footer-brand { color: var(--ink); font-size: 15px; font-weight: 700; }
+    .class-wrap { background: var(--celeste); }
+    .class { overflow: hidden; border-top-right-radius: var(--corner); background: var(--blanco-crema); color: var(--negro-polvo); }
+    .class .label { color: var(--negro-polvo); }
+    .class-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 48px; align-items: end; padding-top: clamp(64px, 9vw, 104px); }
+    .class-text { padding-bottom: clamp(64px, 9vw, 104px); }
+    .points { margin-top: 30px; border-top: 1px solid var(--linea-oscura); }
+    .points li { padding-block: 16px; border-bottom: 1px solid var(--linea-oscura); font-size: 18px; font-weight: 700; line-height: 1.35; }
+    .class-note { max-width: 520px; margin-top: 22px; }
+    .class-art { width: min(100%, 380px); justify-self: end; }
 
-    @media (max-width: 700px) {
-      .shell { width: min(100% - 36px, 540px); }
-      .topbar { min-height: 66px; }
-      .wordmark { font-size: 23px; }
-      .topbar-note { max-width: 145px; text-align: right; font-size: 11px; }
-      .hero { min-height: min(700px, calc(100svh - 70px)); }
-      .hero-image { object-position: 56% center; }
-      .hero-content { padding-block: 48px 42px; }
-      h1 { font-size: clamp(48px, 13vw, 68px); }
-      .hero-copy { max-width: 460px; font-size: 16px; }
-      .hero-actions { align-items: flex-start; flex-direction: column; gap: 12px; }
+    .steps-wrap { background: var(--blanco-crema); }
+    .steps-block { border-top-left-radius: var(--corner); background: var(--negro-polvo); padding-block: clamp(64px, 9vw, 104px); }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 34px; }
+    .step { padding-top: 18px; border-top: 1px solid var(--linea-clara); }
+    .step-number { display: block; margin-bottom: 10px; color: var(--celeste); font-size: 46px; font-weight: 900; line-height: 1; letter-spacing: -.05em; }
+    .step h3 { margin-bottom: 4px; font-size: 19px; font-weight: 700; line-height: 1.25; }
+    .step p { color: var(--crema-suave); font-size: 16px; }
+    .closing { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-top: clamp(56px, 8vw, 88px); }
+    .closing h2 { max-width: 560px; }
+
+    footer { border-top: 1px solid var(--linea-clara); }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 22px; color: var(--crema-suave); font-size: 13px; }
+    .footer-inner .logo { width: 96px; }
+
+    .sticky-cta { display: none; }
+
+    @media (min-width: 900px) {
+      .top-art { top: -70px; right: -60px; width: 470px; transform: rotate(6deg); }
+      .topbar { min-height: 104px; }
+      .logo { width: 128px; }
+      .hero { padding-block: 56px 96px; }
+      .hero-copy { font-size: 19px; }
+    }
+
+    @media (max-width: 699px) {
       .button { width: 100%; }
-      .hero-hint { max-width: 310px; }
-      .details-grid { grid-template-columns: 1fr; padding-block: 6px; }
-      .detail, .detail:first-child { min-height: 61px; padding-inline: 2px; border-right: 0; border-bottom: 1px solid rgba(23, 42, 39, .2); }
+      .details-grid { grid-template-columns: 1fr; gap: 0; padding-block: 34px 22px; }
+      .detail { padding-block: 14px; border-bottom: 1px solid var(--linea-oscura); }
       .detail:last-child { border-bottom: 0; }
-      .intro-grid { grid-template-columns: 1fr; gap: 25px; }
-      .intro-copy { font-size: 16px; }
-      .step { grid-template-columns: 43px 1fr 20px; gap: 12px; }
-      .step-number { font-size: 27px; }
-      .step h3 { font-size: 16px; }
-      .closing-inner { align-items: stretch; flex-direction: column; gap: 28px; }
-      .closing h2 { font-size: 44px; }
-      .footer-inner { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .class-grid { grid-template-columns: 1fr; gap: 36px; }
+      .class-text { padding-bottom: 0; }
+      .class-art { width: 230px; margin-right: -24px; }
+      .steps { grid-template-columns: 1fr; gap: 26px; }
+      .closing { align-items: stretch; flex-direction: column; gap: 24px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; gap: 10px; }
+
+      .sticky-cta {
+        position: fixed;
+        inset: auto 0 0;
+        z-index: 10;
+        display: grid;
+        gap: 8px;
+        padding: 12px 20px calc(12px + env(safe-area-inset-bottom));
+        border-top: 1px solid var(--linea-clara);
+        background: var(--negro-polvo);
+        visibility: hidden;
+        transform: translateY(100%);
+        transition: transform 200ms ease, visibility 200ms;
+      }
+      .sticky-cta.is-visible { visibility: visible; transform: translateY(0); }
     }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
     }
   </style>
 </head>
 <body>
-  <header class="shell topbar">
-    <a class="wordmark" href="#inicio" aria-label="Atom, inicio">
-      <span class="wordmark-mark" aria-hidden="true">a</span>
-      <span>atom</span>
-    </a>
-    <span class="topbar-note">Una clase abierta. Un primer paso.</span>
-  </header>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+  </svg>
+  <div class="top">
+    <img class="top-art" src="assets/cadena-molecular.svg" alt="" aria-hidden="true" width="667" height="935">
 
-  <main id="inicio">
-    <section class="hero" aria-labelledby="hero-title">
-      <img class="hero-image" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&amp;fit=crop&amp;w=2000&amp;q=85" alt="Personas compartiendo una experiencia de aprendizaje" width="2000" height="1333" fetchpriority="high">
-      <div class="shell hero-content">
-        <p class="eyebrow">Clase gratuita de Atom</p>
-        <h1 id="hero-title">Una idea nueva puede <em>cambiarlo todo.</em></h1>
-        <p class="hero-copy">Súmate a una clase abierta para explorar <strong>[tema de la clase]</strong> y llevarte ideas que puedas poner en práctica.</p>
-        <div class="hero-actions">
-          <a class="button whatsapp-link" href="#whatsapp" data-location="hero">
+    <header class="shell topbar">
+      <a class="logo" href="#inicio"><img src="assets/atom-logo.svg" alt="Atom" width="1181" height="685"></a>
+    </header>
+
+    <main id="inicio">
+      <section class="shell hero" aria-labelledby="hero-title">
+        <p class="label">Clase gratis:</p>
+        <h1 id="hero-title">Anotate a la clase gratis de Atom.</h1>
+        <p class="hero-copy">Una clase para <span class="pending">[a quién está dirigida]</span> sobre <strong class="pending">[tema de la clase]</strong>. Sin costo y sin formularios.</p>
+        <div class="actions">
+          <a class="button whatsapp-link" id="hero-cta" href="#whatsapp" data-location="hero" data-status="hero-status">
+            <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
             Quiero mi cupo gratis
-            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <p class="hero-hint">Te llevamos al canal oficial de Atom en WhatsApp para recibir los pasos de confirmación.</p>
-          <p class="hero-status" id="hero-status" role="status" aria-live="polite"></p>
+          <p class="hint">Te lleva al canal de WhatsApp de Atom. Por ahí te mandamos el acceso a la clase.</p>
+          <p class="status" id="hero-status" role="status" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <section class="details-wrap" aria-label="Datos de la clase">
+    <div class="details">
+      <dl class="shell details-grid">
+        <div class="detail"><dt>Cuándo:</dt><dd><span class="pending">[día y fecha]</span></dd></div>
+        <div class="detail"><dt>Hora:</dt><dd><span class="pending">[hora y zona horaria]</span></dd></div>
+        <div class="detail"><dt>Dónde:</dt><dd><span class="pending">[online en vivo / lugar]</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="class-wrap" aria-labelledby="class-title">
+    <div class="class">
+      <div class="shell class-grid">
+        <div class="class-text">
+          <p class="label">En la clase:</p>
+          <h2 id="class-title">Lo que vas a ver</h2>
+          <ul class="points">
+            <li><span class="pending">[Primer punto del contenido de la clase]</span></li>
+            <li><span class="pending">[Segundo punto del contenido de la clase]</span></li>
+            <li><span class="pending">[Tercer punto del contenido de la clase]</span></li>
+          </ul>
+          <p class="class-note">No hace falta experiencia previa. Traé tus preguntas.</p>
+        </div>
+        <img class="class-art" src="assets/pensamiento-estrategico.svg" alt="" aria-hidden="true" width="543" height="678" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="steps-wrap" aria-labelledby="steps-title">
+    <div class="steps-block">
+      <div class="shell">
+        <p class="label">Cómo funciona:</p>
+        <h2 id="steps-title">Tu cupo en tres pasos</h2>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-number" aria-hidden="true">1</span>
+            <h3>Tocás el botón</h3>
+            <p>Entrás al canal de WhatsApp de Atom. No hay formulario.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">2</span>
+            <h3>Te llega la info</h3>
+            <p>Por el canal te mandamos el acceso y los detalles.</p>
+          </li>
+          <li class="step">
+            <span class="step-number" aria-hidden="true">3</span>
+            <h3>Nos vemos en la clase</h3>
+            <p>Agendate el día y sumate.</p>
+          </li>
+        </ol>
+
+        <div class="closing">
+          <h2>Nos vemos el <span class="pending">[día]</span>.</h2>
+          <div class="actions">
+            <a class="button whatsapp-link" id="closing-cta" href="#whatsapp" data-location="closing" data-status="closing-status">
+              <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+              Quiero mi cupo gratis
+            </a>
+            <p class="hint">Te lleva al canal de WhatsApp de Atom.</p>
+            <p class="status" id="closing-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="details-band" aria-label="Datos de la clase">
-      <div class="shell details-grid">
-        <div class="detail">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="16" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M7.5 3v4M16.5 3v4M4 9.5h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-          <span><span class="detail-label">Cuándo</span><span class="detail-value">[Día y fecha]</span></span>
-        </div>
-        <div class="detail">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.5" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span><span class="detail-label">Horario</span><span class="detail-value">[Hora y zona horaria]</span></span>
-        </div>
-        <div class="detail">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="m10 9 5 3-5 3V9Z" fill="currentColor"/></svg>
-          <span><span class="detail-label">Modalidad</span><span class="detail-value">[En vivo / duración]</span></span>
-        </div>
-      </div>
-    </section>
-
-    <section class="section shell">
-      <div class="intro-grid">
-        <div>
-          <p class="section-kicker">Una clase para empezar</p>
-          <h2>Aprender algo nuevo también puede sentirse simple.</h2>
-        </div>
-        <div class="intro-copy">
-          <p>En esta sesión gratuita vamos a conversar sobre <strong>[tema de la clase]</strong>: qué significa, por dónde empezar y cómo llevarlo a tu día a día.</p>
-          <p>Está pensada para <strong>[a quién está dirigida]</strong>. No necesitas experiencia previa, salvo que la clase requiera conocimientos específicos.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section shell" aria-labelledby="steps-title">
-      <p class="section-kicker">Así funciona</p>
-      <h2 id="steps-title" style="margin-bottom: 34px">Tu lugar, en tres pasos.</h2>
-      <div class="steps">
-        <div class="step">
-          <span class="step-number">01</span>
-          <div><h3>Únete al canal de Atom</h3><p>El botón te llevará a WhatsApp, sin formulario.</p></div>
-          <span class="step-arrow" aria-hidden="true">↘</span>
-        </div>
-        <div class="step">
-          <span class="step-number">02</span>
-          <div><h3>Recibe la información</h3><p>Te compartiremos las instrucciones y el acceso a la clase.</p></div>
-          <span class="step-arrow" aria-hidden="true">↘</span>
-        </div>
-        <div class="step">
-          <span class="step-number">03</span>
-          <div><h3>Nos encontramos en clase</h3><p>Reserva la fecha y acompáñanos en la sesión gratuita.</p></div>
-          <span class="step-arrow" aria-hidden="true">↗</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="closing" aria-labelledby="closing-title">
-      <div class="shell closing-inner">
-        <div>
-          <p class="section-kicker">Nos vemos pronto</p>
-          <h2 id="closing-title">Una clase gratis. Tu próximo paso.</h2>
-          <p class="closing-status" id="closing-status" role="status" aria-live="polite"></p>
-        </div>
-        <a class="button whatsapp-link" href="#whatsapp" data-location="closing">
-          Quiero mi cupo gratis
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h13M12 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="shell footer-inner">
-    <span class="footer-brand">atom</span>
-    <p>Clase gratuita · Información oficial en el canal de Atom</p>
+  <footer>
+    <div class="shell footer-inner">
+      <a class="logo" href="#inicio"><img src="assets/atom-logo.svg" alt="Atom" width="1181" height="685" loading="lazy"></a>
+      <p>Clase gratis · Instagram: <span class="pending">[@usuario de Atom]</span></p>
+    </div>
   </footer>
+
+  <div class="sticky-cta" id="sticky-cta">
+    <a class="button whatsapp-link" href="#whatsapp" data-location="sticky" data-status="sticky-status">
+      <svg aria-hidden="true"><use href="#icon-whatsapp"/></svg>
+      Quiero mi cupo gratis
+    </a>
+    <p class="status" id="sticky-status" role="status" aria-live="polite"></p>
+  </div>
 
   <script>
     const WHATSAPP_URL = "";
 
     document.querySelectorAll(".whatsapp-link").forEach((link) => {
+      if (WHATSAPP_URL) {
+        link.href = WHATSAPP_URL;
+        return;
+      }
+
       link.addEventListener("click", (event) => {
         event.preventDefault();
-
-        if (WHATSAPP_URL) {
-          window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
-          return;
-        }
-
-        const message = "El enlace de WhatsApp todavía no está configurado. Escríbenos para recibir el acceso a la clase.";
-        const statusId = link.dataset.location === "hero" ? "hero-status" : "closing-status";
-        document.getElementById(statusId).textContent = message;
+        document.getElementById(link.dataset.status).textContent =
+          "Todavía no cargamos el enlace de WhatsApp. Escribinos por Instagram y te pasamos el acceso.";
       });
     });
+
+    const stickyCta = document.getElementById("sticky-cta");
+    const inlineCtas = [document.getElementById("hero-cta"), document.getElementById("closing-cta")];
+    const visibleCtas = new Set();
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) visibleCtas.add(entry.target);
+          else visibleCtas.delete(entry.target);
+        });
+        stickyCta.classList.toggle("is-visible", visibleCtas.size === 0);
+      });
+      inlineCtas.forEach((cta) => observer.observe(cta));
+    }
   </script>
 </body>
 </html>
